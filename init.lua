@@ -1,8 +1,8 @@
 aoe = {}
 
 local mod_path = minetest.get_modpath("aoe")
-dofile(mod_path.."\\config.lua")
-dofile(mod_path.."\\functions.lua")
+dofile(mod_path.."/config.lua")
+dofile(mod_path.."/functions.lua")
 
 --Move to it's own 
 function aoe.get_formspec(name)
@@ -25,16 +25,23 @@ function aoe.show_to(name)
     minetest.show_formspec(name, "aoe:game", aoe.get_formspec(name))
 end
 
-minetest.register_node("aoe:test",{
-	description = "for testing schem placement",
-	tiles = {"aoe_test.png"},
-	groups = {cracky = 1},
-	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
-		--minetest.chat_send_all(pos.z)
-		aoe.show_to(clicker:get_player_name())
-		minetest.place_schematic(pos, minetest.get_modpath("aoe").."/schematics/test.mts", 0, nil, false)
-	end,
+--[[minetest.register_node("aoe:test",{
+    description = "for testing schem placement",
+    tiles = {"aoe_test.png"},
+    groups = {cracky = 1},
+    on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
+        --minetest.chat_send_all(pos.z)
+        aoe.show_to(clicker:get_player_name())
+        --minetest.place_schematic(pos, minetest.get_modpath("aoe").."/schematics/test.mts", 0, nil, false)
+    end,
+    on_construct = function(pos)
+       local x = 0
+       local z = 0
+        aoe.placePad(x,z,pos)
+    end,
+    
 })
+--]]
 
 minetest.register_node("aoe:placementIndicator",{
     description = "Used to indicate the placement of schematic",
@@ -60,3 +67,12 @@ minetest.register_node("aoe:padplacer",{
     end,
 
 })
+
+minetest.register_node("aoe:NO",{
+    description = "for being awesome",
+    tiles = {"awesome.png"},
+    groups = {cracky = 1},
+
+})
+
+
